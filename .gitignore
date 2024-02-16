@@ -1,3 +1,6 @@
+# bkp of drawio files
+*.bkp
+
 # Local .terraform directories
 **/.terraform/*
 

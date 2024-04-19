@@ -17,7 +17,7 @@ This article shows you how to set up for demo proposes a environment with many s
 
 Set up the virtual networking for the environment
 
-```azurecli-interactive
+```bash
 az group create \
     --name aks-multi-rg \
     --location brazilsouth
@@ -33,7 +33,7 @@ az network vnet create \
 ```
 
 Create the subnets
-```azurecli-interactive
+```bash
 
 az network vnet subnet create \
     -g aks-multi-rg \

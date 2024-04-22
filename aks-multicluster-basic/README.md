@@ -70,6 +70,22 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/application-gateway-kub
 ```
 ---
 
+
+Create Application Gateway
+
+```bash
+
+#create vnet
+az network vnet create --name agic-vnet --resource-group aks-multi-b-rg --location brazilsouth --address-prefix 10.21.0.0/16 --subnet-name appgtwsubnet --subnet-prefix 10.21.0.0/24
+
+#create public ip
+az network public-ip create --resource-group aks-multi-b-rg --name appgtw-pip --allocation-method Static --sku Standard
+
+#create Application Gateway
+az network application-gateway create --name appgtw --location brazilsouth --resource-group aks-multi-b-rg --capacity 2 --sku Standard_v2 --public-ip-address appgtw-pip --vnet-name agic-vnet --subnet appgtwsubnet
+
+```
+
 ## Next steps
 
 

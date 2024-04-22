@@ -26,6 +26,8 @@ Create Cluster 01
 # Create AKS 01
 az aks create --resource-group aks-multi-b-rg --name aks-kuben01 --enable-managed-identity --node-count 1 --generate-ssh-keys
 
+az aks approuting enable -g aks-multi-b-rg -n aks-kuben01
+
 ```
 Create Cluster 02
 
@@ -33,7 +35,13 @@ Create Cluster 02
 # Create AKS 02
 az aks create --resource-group aks-multi-b-rg --name aks-kuben02 --enable-managed-identity --node-count 1 --generate-ssh-keys
 
+az aks approuting enable -g aks-multi-b-rg -n aks-kuben02
+
 ```
+
+
+
+
 Deploy App to test
 
 ```bash

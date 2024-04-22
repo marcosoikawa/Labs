@@ -50,6 +50,9 @@ Deploy App to test
 #credentials
 az aks get-credentials -n aks-kuben01 -g aks-multi-b-rg
 
+#namespace
+kubectl create namespace hello-web-app-routing
+
 #Deployment
 kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/deployment01.yaml -n hello-web-app-routing
 

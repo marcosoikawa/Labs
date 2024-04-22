@@ -89,7 +89,9 @@ az network application-gateway create --name appgtw --location brazilsouth --res
 Create API Management
 
 ```bash
-az apim create --name apim --resource-group aks-multi-b-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
+
+let "randomId=$RANDOM"
+az apim create --name "apim$randomId" --resource-group aks-multi-b-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
 
 ```
 ## Next steps

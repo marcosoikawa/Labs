@@ -54,10 +54,10 @@ az aks get-credentials -n aks-kuben01 -g aks-multi-b-rg
 kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/deployment01.yaml -n hello-web-app-routing
 
 #service
-kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/ingress.yaml -n hello-web-app-routing
+kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/service.yaml -n hello-web-app-routing
 
 #ingress
-kubectl apply -f ingress.yaml -n hello-web-app-routing
+kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/ingress.yaml -n hello-web-app-routing
 
 #verify
 kubectl get ingress -n hello-web-app-routing

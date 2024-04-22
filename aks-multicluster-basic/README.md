@@ -24,7 +24,7 @@ Create Cluster 01
 
 ```bash
 # Create AKS 01
-az aks create -n aks-agic01 -g aks-multi-b-rg --network-plugin azure --enable-managed-identity -a ingress-appgw --appgw-name agic01 --appgw-subnet-cidr "10.255.0.0/16" --generate-ssh-keys
+az aks create -n aks-agic01 -g aks-multi-b-rg --network-plugin azure --enable-managed-identity -a ingress-appgw --appgw-name agic01 --appgw-subnet-cidr "10.225.0.0/16" --generate-ssh-keys
 
 # Get application gateway id from AKS addon profile
 appGatewayId=$(az aks show -n aks-agic01 -g aks-multi-b-rg -o tsv --query "addonProfiles.ingressApplicationGateway.config.effectiveApplicationGatewayId")
@@ -43,7 +43,7 @@ Create Cluster 02
 
 ```bash
 # Create AKS 02
-az aks create -n aks-agic02 -g aks-multi-b-rg --network-plugin azure --enable-managed-identity -a ingress-appgw --appgw-name agic02 --appgw-subnet-cidr "10.255.0.0/16" --generate-ssh-keys
+az aks create -n aks-agic02 -g aks-multi-b-rg --network-plugin azure --enable-managed-identity -a ingress-appgw --appgw-name agic02 --appgw-subnet-cidr "10.225.0.0/16" --generate-ssh-keys
 
 # Get application gateway id from AKS addon profile
 appGatewayId=$(az aks show -n aks-agic02 -g aks-multi-b-rg -o tsv --query "addonProfiles.ingressApplicationGateway.config.effectiveApplicationGatewayId")

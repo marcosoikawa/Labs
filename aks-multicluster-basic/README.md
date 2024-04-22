@@ -82,7 +82,7 @@ az network vnet create --name agic-vnet --resource-group aks-multi-b-rg --locati
 az network public-ip create --resource-group aks-multi-b-rg --name appgtw-pip --allocation-method Static --sku Standard
 
 #create Application Gateway
-az network application-gateway create --name appgtw --location brazilsouth --resource-group aks-multi-b-rg --capacity 2 --sku Standard_v2 --public-ip-address appgtw-pip --vnet-name agic-vnet --subnet appgtwsubnet
+az network application-gateway create --name appgtw --location brazilsouth --resource-group aks-multi-b-rg --capacity 2 --sku Standard_v2 --public-ip-address appgtw-pip --vnet-name agic-vnet --subnet appgtwsubnet --priority 100
 
 ```
 

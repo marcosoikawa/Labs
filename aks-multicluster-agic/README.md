@@ -1,6 +1,6 @@
 
 
-# Configure Azure Kubernetes Service (AKS) in multi cluster envoronment, with basic networking
+# Configure Azure Kubernetes Service (AKS) in multi cluster envoronment, with AGIC (Application Gateway Infress Controller) with basic networking
 
 This article shows you how to set up for demo proposes a environment with many scenarios for AKS, with basic networking (working with public ip, not recomended for production environments)
 

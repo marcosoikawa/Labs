@@ -84,6 +84,16 @@ az network public-ip create --resource-group aks-multi-b-rg --name appgtw-pip --
 #create Application Gateway
 az network application-gateway create --name appgtw --location brazilsouth --resource-group aks-multi-b-rg --capacity 2 --sku Standard_v2 --public-ip-address appgtw-pip --vnet-name agic-vnet --subnet appgtwsubnet --priority 100
 
+#get AKSs Ingress IPs
+
+#AKS01
+az aks get-credentials -n aks-agic01 -g aks-multi-b-rg
+kubectl get ingress
+
+#AKS01
+az aks get-credentials -n aks-agic02 -g aks-multi-b-rg
+kubectl get ingress
+
 ```
 
 Create API Management

@@ -67,8 +67,24 @@ kubectl get ingress -n hello-web-app-routing
 
 
 #Cluster 02
+
+#credentials
 az aks get-credentials -n aks-kuben02 -g aks-multi-b-rg
-kubectl apply -f https://raw.githubusercontent.com/Azure/application-gateway-kubernetes-ingress/master/docs/examples/aspnetapp.yaml
+
+#namespace
+kubectl create namespace hello-web-app-routing
+
+#Deployment
+kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/deployment02.yaml -n hello-web-app-routing
+
+#service
+kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/service.yaml -n hello-web-app-routing
+
+#ingress
+kubectl apply -f https://raw.githubusercontent.com/marcosoikawa/Labs/main/aks-multicluster-kubnet/ingress.yaml -n hello-web-app-routing
+
+#verify
+kubectl get ingress -n hello-web-app-routing
 
 ```
 ---

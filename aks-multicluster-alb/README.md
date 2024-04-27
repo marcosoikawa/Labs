@@ -57,9 +57,8 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
 
-# Install ALB Controller
+# Install ALB Controller - Cluster 01
 
-Cluster 01
 Create a user managed identity for ALB controller and federate the identity as Workload Identity to use in the AKS cluster:
 
 
@@ -93,7 +92,7 @@ az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME
 helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-controller --version 1.0.0 --set albController.namespace=<alb-controller-namespace> --set albController.podIdentity.clientID=$(az identity show -g $RESOURCE_GROUP -n azure-alb-identity --query clientId -o tsv)
 ```
 
-Cluster 02
+# Install ALB Controller - Cluster 02
 Create a user managed identity for ALB controller and federate the identity as Workload Identity to use in the AKS cluster
 
 ```bash

@@ -99,7 +99,7 @@ Create a user managed identity for ALB controller and federate the identity as W
 ```bash
 RESOURCE_GROUP='aks-multi-b-rg'
 AKS_NAME='aks-alb02'
-#IDENTITY_RESOURCE_NAME='alb-id02'
+IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
 mcResourceGroup=$(az aks show --resource-group $RESOURCE_GROUP --name $AKS_NAME --query "nodeResourceGroup" -o tsv)
 mcResourceGroupId=$(az group show --name $mcResourceGroup --query id -otsv)

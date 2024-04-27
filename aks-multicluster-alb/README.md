@@ -300,7 +300,21 @@ curl -k --resolve alb.oikawa.net.br:80:$fqdnIp http://alb.oikawa.net.br
 
 ```
 
-Create API Management
+## Create Application Gateway
+
+```bash 
+#create vnet
+az network vnet create --name alb-vnet --resource-group aks-multi-alb-rg --location westus --address-prefix 10.21.0.0/16 --subnet-name appgtwsubnet --subnet-prefix 10.21.0.0/24
+
+#create public ip
+az network public-ip create --resource-group aks-multi-alb-rg --name appgtw-pip --allocation-method Static --sku Standard
+
+#create Application Gateway
+az network application-gateway create --name appgtw --location westus --resource-group aks-multi-alb-rg --capacity 2 --sku Standard_v2 --public-ip-address appgtw-pip --vnet-name alb-vnet --subnet appgtwsubnet --priority 100
+
+```
+
+## Create API Management
 
 ```bash
 
@@ -308,6 +322,10 @@ let "randomId=$RANDOM"
 az apim create --name "apim$randomId" --resource-group aks-multi-alb-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
 
 ```
+
+
+
+
 ## Clean Up
 
 1. Access Azure Preview Portal

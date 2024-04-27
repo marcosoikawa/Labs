@@ -290,6 +290,16 @@ EOF
 kubectl get httproute contoso-route -n test-infra -o yaml
 ```
 
+# Test Application
+```bash
+fqdn=$(kubectl get gateway gateway-01 -n test-infra -o jsonpath='{.status.addresses[0].value}')
+
+
+fqdnIp=$(dig +short $fqdn)
+curl -k --resolve alb.oikawa.net.br:80:$fqdnIp http://alb.oikawa.net.br
+
+```
+
 Create API Management
 
 ```bash

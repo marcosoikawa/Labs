@@ -268,6 +268,26 @@ EOF
 
 kubectl get gateway gateway-01 -n test-infra -o yaml
 
+
+kubectl apply -f - <<EOF
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: contoso-route
+  namespace: test-infra
+spec:
+  parentRefs:
+  - name: gateway-01
+  hostnames:
+  - "alb.oikawa.net.br"
+  rules:
+  - backendRefs:
+    - name: backend-v1
+      port: 8080
+EOF
+
+
+kubectl get httproute contoso-route -n test-infra -o yaml
 ```
 
 Create API Management

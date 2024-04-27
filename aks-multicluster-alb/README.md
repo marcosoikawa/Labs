@@ -63,7 +63,7 @@ Create a user managed identity for ALB controller and federate the identity as W
 
 
 ```bash
-RESOURCE_GROUP='name aks-multi-alb-rg'
+RESOURCE_GROUP='aks-multi-alb-rg'
 AKS_NAME='aks-alb01'
 IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
@@ -97,7 +97,7 @@ helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-co
 Create a user managed identity for ALB controller and federate the identity as Workload Identity to use in the AKS cluster
 
 ```bash
-RESOURCE_GROUP='name aks-multi-alb-rg'
+RESOURCE_GROUP='aks-multi-alb-rg'
 AKS_NAME='aks-alb02'
 IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
@@ -136,7 +136,7 @@ helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-co
 Subnet for Cluster 01
 ```bash
 AKS_NAME='aks-alb01'
-RESOURCE_GROUP='name aks-multi-alb-rg'
+RESOURCE_GROUP='aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)
@@ -153,7 +153,7 @@ ALB_SUBNET_ID=$(az network vnet subnet show --name $ALB_SUBNET_NAME --resource-g
 Subnet for Cluster 02
 ```bash
 AKS_NAME='aks-alb02'
-RESOURCE_GROUP='name aks-multi-alb-rg'
+RESOURCE_GROUP='aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)
@@ -220,7 +220,7 @@ EOF
 
 #get subnet ID
 AKS_NAME='aks-alb01'
-RESOURCE_GROUP='name aks-multi-alb-rg'
+RESOURCE_GROUP='aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)

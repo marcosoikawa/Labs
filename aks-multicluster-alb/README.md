@@ -32,8 +32,8 @@ Create Resource Group
 
 ```bash
 az group create \
-    --name aks-multi-b-rg \
-    --location brazilsouth
+    --name aks-multi-alb-rg \
+    --location westus
 ```
 
 Create Clusters
@@ -41,10 +41,10 @@ Create Clusters
 ```bash
 
 # Create AKS 01
-az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb01' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
+az aks create --resource-group 'name aks-multi-alb-rg' --name 'aks-alb01' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 # Create AKS 02
-az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb02' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
+az aks create --resource-group 'name aks-multi-alb-rg' --name 'aks-alb02' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 ```
 
@@ -63,7 +63,7 @@ Create a user managed identity for ALB controller and federate the identity as W
 
 
 ```bash
-RESOURCE_GROUP='aks-multi-b-rg'
+RESOURCE_GROUP='name aks-multi-alb-rg'
 AKS_NAME='aks-alb01'
 IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
@@ -97,7 +97,7 @@ helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-co
 Create a user managed identity for ALB controller and federate the identity as Workload Identity to use in the AKS cluster
 
 ```bash
-RESOURCE_GROUP='aks-multi-b-rg'
+RESOURCE_GROUP='name aks-multi-alb-rg'
 AKS_NAME='aks-alb02'
 IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
@@ -136,7 +136,7 @@ helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-co
 Subnet for Cluster 01
 ```bash
 AKS_NAME='aks-alb01'
-RESOURCE_GROUP='aks-multi-b-rg'
+RESOURCE_GROUP='name aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)
@@ -153,7 +153,7 @@ ALB_SUBNET_ID=$(az network vnet subnet show --name $ALB_SUBNET_NAME --resource-g
 Subnet for Cluster 02
 ```bash
 AKS_NAME='aks-alb02'
-RESOURCE_GROUP='aks-multi-b-rg'
+RESOURCE_GROUP='name aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)
@@ -208,7 +208,7 @@ Cluster 01
 ```bash
 
 kubectl config delete-context aks-alb02
-az aks get-credentials --resource-group aks-multi-b-rg --name aks-alb01
+az aks get-credentials --resource-group name aks-multi-alb-rg --name aks-alb01
 
 kubectl apply -f - <<EOF
 apiVersion: v1
@@ -220,7 +220,7 @@ EOF
 
 #get subnet ID
 AKS_NAME='aks-alb01'
-RESOURCE_GROUP='aks-multi-b-rg'
+RESOURCE_GROUP='name aks-multi-alb-rg'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -o tsv)
 CLUSTER_SUBNET_ID=$(az vmss list --resource-group $MC_RESOURCE_GROUP --query '[0].virtualMachineProfile.networkProfile.networkInterfaceConfigurations[0].ipConfigurations[0].subnet.id' -o tsv)
@@ -239,6 +239,8 @@ spec:
   - $ALB_SUBNET_ID
 EOF
 
+kubectl get applicationloadbalancer alb-test -n alb-test-infra -o yaml -w
+
 ```
 
 
@@ -247,7 +249,7 @@ Create API Management
 ```bash
 
 let "randomId=$RANDOM"
-az apim create --name "apim$randomId" --resource-group aks-multi-b-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
+az apim create --name "apim$randomId" --resource-group name aks-multi-alb-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
 
 ```
 ## Next steps

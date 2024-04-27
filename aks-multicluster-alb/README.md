@@ -89,7 +89,7 @@ Install ALB Controller:
 
 ```bash
 az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME
-helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-controller --version 1.0.0 --set albController.namespace=<alb-controller-namespace> --set albController.podIdentity.clientID=$(az identity show -g $RESOURCE_GROUP -n azure-alb-identity --query clientId -o tsv)
+helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-controller --version 1.0.0 --set albController.podIdentity.clientID=$(az identity show -g $RESOURCE_GROUP -n azure-alb-identity --query clientId -o tsv)
 ```
 
 # Install ALB Controller - Cluster 02

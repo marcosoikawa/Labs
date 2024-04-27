@@ -119,6 +119,11 @@ AKS_OIDC_ISSUER="$(az aks show -n "$AKS_NAME" -g "$RESOURCE_GROUP" --query "oidc
 az identity federated-credential create --name "azure-alb-identity" --identity-name "azure-alb-identity" --resource-group $RESOURCE_GROUP --issuer "$AKS_OIDC_ISSUER" --subject "system:serviceaccount:azure-alb-system:alb-controller-sa"
 ```
 
+Delete context of other clusters:
+```bash
+kubectl config delete-context aks-alb01
+```
+
 Install ALB Controller:
 
 ```bash

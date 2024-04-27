@@ -36,12 +36,11 @@ az group create \
     --location brazilsouth
 ```
 
-Create Cluster 01
+Create Clusters
 
 ```bash
 
 # Create AKS 01
-
 az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb01' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 # Create AKS 02

@@ -183,7 +183,7 @@ az role assignment create --assignee-object-id $principalId --assignee-principal
 
 Delegate permissions to managed identity for Cluster 02
 ```bash
-AKS_NAME='aks-alb01'
+AKS_NAME='aks-alb02'
 IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
 MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -otsv | tr -d '\r')

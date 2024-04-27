@@ -41,10 +41,10 @@ Create Clusters
 ```bash
 
 # Create AKS 01
-az aks create --resource-group 'name aks-multi-alb-rg' --name 'aks-alb01' --location 'westus' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
+az aks create --resource-group 'aks-multi-alb-rg' --name 'aks-alb01' --location 'westus' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 # Create AKS 02
-az aks create --resource-group 'name aks-multi-alb-rg' --name 'aks-alb02' --location 'westus' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
+az aks create --resource-group 'aks-multi-alb-rg' --name 'aks-alb02' --location 'westus' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 ```
 

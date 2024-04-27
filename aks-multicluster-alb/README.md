@@ -252,7 +252,7 @@ let "randomId=$RANDOM"
 az apim create --name "apim$randomId" --resource-group name aks-multi-alb-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
 
 ```
-## Next steps
+## Clean Up
 
-
-
+1. Access Azure Preview Portal
+2. Delete Resource Group where your resources got provisioned.

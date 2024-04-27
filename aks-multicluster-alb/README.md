@@ -208,7 +208,7 @@ Cluster 01
 ```bash
 
 kubectl config delete-context aks-alb02
-az aks get-credentials --resource-group name aks-multi-alb-rg --name aks-alb01
+az aks get-credentials --resource-group aks-multi-alb-rg --name aks-alb01
 
 kubectl apply -f - <<EOF
 apiVersion: v1
@@ -249,7 +249,7 @@ Create API Management
 ```bash
 
 let "randomId=$RANDOM"
-az apim create --name "apim$randomId" --resource-group name aks-multi-alb-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
+az apim create --name "apim$randomId" --resource-group aks-multi-alb-rg --publisher-name Contoso --publisher-email admin@contoso.com --no-wait 
 
 ```
 ## Clean Up

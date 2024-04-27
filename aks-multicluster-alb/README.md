@@ -133,7 +133,7 @@ helm install alb-controller oci://mcr.microsoft.com/application-lb/charts/alb-co
 
 # Create Application Gateway for Containers
 
-Cluster 01
+Subnet for Cluster 01
 ```bash
 AKS_NAME='aks-alb01'
 RESOURCE_GROUP='aks-multi-b-rg'
@@ -148,7 +148,7 @@ az network vnet subnet create --resource-group $VNET_RESOURCE_GROUP --vnet-name 
 ALB_SUBNET_ID=$(az network vnet subnet show --name $ALB_SUBNET_NAME --resource-group $VNET_RESOURCE_GROUP --vnet-name $VNET_NAME --query '[id]' --output tsv)
 
 ```
-Cluster 02
+Subnet for Cluster 02
 ```bash
 AKS_NAME='aks-alb02'
 RESOURCE_GROUP='aks-multi-b-rg'
@@ -162,6 +162,40 @@ ALB_SUBNET_NAME='subnet-alb' # subnet name can be any non-reserved subnet name (
 az network vnet subnet create --resource-group $VNET_RESOURCE_GROUP --vnet-name $VNET_NAME --name $ALB_SUBNET_NAME --address-prefixes $SUBNET_ADDRESS_PREFIX --delegations 'Microsoft.ServiceNetworking/trafficControllers'
 ALB_SUBNET_ID=$(az network vnet subnet show --name $ALB_SUBNET_NAME --resource-group $VNET_RESOURCE_GROUP --vnet-name $VNET_NAME --query '[id]' --output tsv)
 
+```
+
+Delegate permissions to managed identity for Cluster 01
+```bash
+AKS_NAME='aks-alb01'
+IDENTITY_RESOURCE_NAME='azure-alb-identity'
+
+MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -otsv | tr -d '\r')
+
+mcResourceGroupId=$(az group show --name $MC_RESOURCE_GROUP --query id -otsv)
+principalId=$(az identity show -g $RESOURCE_GROUP -n $IDENTITY_RESOURCE_NAME --query principalId -otsv)
+
+# Delegate AppGw for Containers Configuration Manager role to AKS Managed Cluster RG
+az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --scope $mcResourceGroupId --role "fbc52c3f-28ad-4303-a892-8a056630b8f1"
+
+# Delegate Network Contributor permission for join to association subnet
+az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --scope $ALB_SUBNET_ID --role "4d97b98b-1d4f-4787-a291-c67834d212e7"
+```
+
+Delegate permissions to managed identity for Cluster 02
+```bash
+AKS_NAME='aks-alb01'
+IDENTITY_RESOURCE_NAME='azure-alb-identity'
+
+MC_RESOURCE_GROUP=$(az aks show --name $AKS_NAME --resource-group $RESOURCE_GROUP --query "nodeResourceGroup" -otsv | tr -d '\r')
+
+mcResourceGroupId=$(az group show --name $MC_RESOURCE_GROUP --query id -otsv)
+principalId=$(az identity show -g $RESOURCE_GROUP -n $IDENTITY_RESOURCE_NAME --query principalId -otsv)
+
+# Delegate AppGw for Containers Configuration Manager role to AKS Managed Cluster RG
+az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --scope $mcResourceGroupId --role "fbc52c3f-28ad-4303-a892-8a056630b8f1"
+
+# Delegate Network Contributor permission for join to association subnet
+az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --scope $ALB_SUBNET_ID --role "4d97b98b-1d4f-4787-a291-c67834d212e7"
 ```
 
 Create API Management

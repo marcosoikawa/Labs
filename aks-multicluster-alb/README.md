@@ -242,7 +242,33 @@ EOF
 kubectl get applicationloadbalancer alb-test -n alb-test-infra -o yaml -w
 
 ```
+# Deploy sample application
+```bash
+kubectl apply -f https://trafficcontrollerdocs.blob.core.windows.net/examples/traffic-split-scenario/deployment.yaml
 
+kubectl apply -f - <<EOF
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway-01
+  namespace: test-infra
+  annotations:
+    alb.networking.azure.io/alb-namespace: alb-test-infra
+    alb.networking.azure.io/alb-name: alb-test
+spec:
+  gatewayClassName: azure-alb-external
+  listeners:
+  - name: http-listener
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: Same
+EOF
+
+kubectl get gateway gateway-01 -n test-infra -o yaml
+
+```
 
 Create API Management
 

@@ -11,9 +11,9 @@ This article shows you how to set up for demo proposes a environment with many s
 
 ---
 
-## Configure networking
+## Create Environment
 
-Set up the virtual networking for the environment
+Set up the Resource Group
 
 ```bash
 az group create \

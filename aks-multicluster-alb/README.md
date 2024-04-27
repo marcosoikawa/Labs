@@ -65,7 +65,7 @@ Create a user managed identity for ALB controller and federate the identity as W
 ```bash
 RESOURCE_GROUP='aks-multi-b-rg'
 AKS_NAME='aks-alb01'
-IDENTITY_RESOURCE_NAME='alb-id01'
+IDENTITY_RESOURCE_NAME='azure-alb-identity'
 
 mcResourceGroup=$(az aks show --resource-group $RESOURCE_GROUP --name $AKS_NAME --query "nodeResourceGroup" -o tsv)
 mcResourceGroupId=$(az group show --name $mcResourceGroup --query id -otsv)
@@ -82,6 +82,7 @@ az role assignment create --assignee-object-id $principalId --assignee-principal
 
 echo "Set up federation with AKS OIDC issuer"
 AKS_OIDC_ISSUER="$(az aks show -n "$AKS_NAME" -g "$RESOURCE_GROUP" --query "oidcIssuerProfile.issuerUrl" -o tsv)"
+echo "create federated identity"
 az identity federated-credential create --name "azure-alb-identity" --identity-name "$IDENTITY_RESOURCE_NAME" --resource-group $RESOURCE_GROUP --issuer "$AKS_OIDC_ISSUER" --subject "system:serviceaccount:azure-alb-system:alb-controller-sa"
 ```
 

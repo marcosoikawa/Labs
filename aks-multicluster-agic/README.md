@@ -4,6 +4,9 @@
 
 This article shows you how to set up for demo proposes a environment with many scenarios for AKS, with basic networking (working with public ip, not recomended for production environments)
 
+# Architecture Desing
+
+![Environment](./media/Oikawa-aks-agic.png)
 
 ## Prerequisites
 

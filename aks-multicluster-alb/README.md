@@ -44,7 +44,7 @@ Create Clusters
 az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb01' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 # Create AKS 02
-az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb01' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
+az aks create --resource-group 'aks-multi-b-rg' --name 'aks-alb02' --location 'brazilsouth' --network-plugin azure --enable-oidc-issuer --enable-workload-identity --generate-ssh-key
 
 ```
 

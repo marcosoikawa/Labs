@@ -99,14 +99,14 @@ Create a user managed identity for ALB controller and federate the identity as W
 ```bash
 RESOURCE_GROUP='aks-multi-b-rg'
 AKS_NAME='aks-alb02'
-IDENTITY_RESOURCE_NAME='alb-id02'
+#IDENTITY_RESOURCE_NAME='alb-id02'
 
 mcResourceGroup=$(az aks show --resource-group $RESOURCE_GROUP --name $AKS_NAME --query "nodeResourceGroup" -o tsv)
 mcResourceGroupId=$(az group show --name $mcResourceGroup --query id -otsv)
 
-echo "Creating identity $IDENTITY_RESOURCE_NAME in resource group $RESOURCE_GROUP"
-az identity create --resource-group $RESOURCE_GROUP --name $IDENTITY_RESOURCE_NAME
-principalId="$(az identity show -g $RESOURCE_GROUP -n $IDENTITY_RESOURCE_NAME --query principalId -otsv)"
+#echo "Creating identity $IDENTITY_RESOURCE_NAME in resource group $RESOURCE_GROUP"
+#az identity create --resource-group $RESOURCE_GROUP --name $IDENTITY_RESOURCE_NAME
+#principalId="$(az identity show -g $RESOURCE_GROUP -n $IDENTITY_RESOURCE_NAME --query principalId -otsv)"
 
 echo "Waiting 60 seconds to allow for replication of the identity..."
 sleep 60
@@ -116,7 +116,7 @@ az role assignment create --assignee-object-id $principalId --assignee-principal
 
 echo "Set up federation with AKS OIDC issuer"
 AKS_OIDC_ISSUER="$(az aks show -n "$AKS_NAME" -g "$RESOURCE_GROUP" --query "oidcIssuerProfile.issuerUrl" -o tsv)"
-az identity federated-credential create --name "azure-alb-identity" --identity-name "$IDENTITY_RESOURCE_NAME" --resource-group $RESOURCE_GROUP --issuer "$AKS_OIDC_ISSUER" --subject "system:serviceaccount:azure-alb-system:alb-controller-sa"
+az identity federated-credential create --name "azure-alb-identity" --identity-name "azure-alb-identity" --resource-group $RESOURCE_GROUP --issuer "$AKS_OIDC_ISSUER" --subject "system:serviceaccount:azure-alb-system:alb-controller-sa"
 ```
 
 Install ALB Controller:
